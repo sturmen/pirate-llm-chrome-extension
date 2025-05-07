@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pirate Rewriter Settings</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            width: 380px; /* Slightly wider for more text */
+            padding: 20px;
+            background-color: #f4f4f4; /* Lighter gray */
+            color: #333;
+        }
+        h3 {
+            text-align: center;
+            color: #d35400; /* Pirate orange */
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+        label {
+            display: block;
+            margin-top: 12px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"], input[type="url"] {
+            width: calc(100% - 16px); /* Adjusted for padding */
+            padding: 10px;
+            margin-top: 6px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        button {
+            background-color: #e67e22; /* Pirate button color */
+            color: white;
+            padding: 12px 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 25px;
+            width: 100%;
+            transition: background-color 0.3s ease;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #d35400;
+        }
+        #status {
+            margin-top: 18px;
+            text-align: center;
+            font-weight: bold;
+            min-height: 20px; /* Reserve space */
+        }
+        .info {
+            font-size: 0.85em; /* Slightly smaller */
+            color: #666;
+            margin-top: 6px;
+            line-height: 1.5;
+        }
+        a {
+            color: #c0392b; /* More piratey red for links */
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .separator {
+            border-top: 1px dashed #ccc;
+            margin-top: 20px;
+            padding-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h3>🏴‍☠️ Pirate Rewriter Settings 🦜</h3>
+
+    <label for="llmApiUrl">LLM API Base URL:</label>
+    <input type="url" id="llmApiUrl" placeholder="e.g., http://localhost:1234/v1">
+    <div class="info">Base URL for your OpenAI-compatible local LLM. Default for LM Studio is often <code>http://localhost:1234/v1</code>. The extension appends '/chat/completions'.</div>
+
+    <label for="llmModelName">Model Name:</label>
+    <input type="text" id="llmModelName" placeholder="e.g., llama3, mistral-instruct">
+    <div class="info">The exact name of the model loaded in your LLM server (case-sensitive for some servers).</div>
+
+    <label for="llmApiKey">API Key (Optional):</label>
+    <input type="text" id="llmApiKey" placeholder="Usually 'none' or blank for LM Studio">
+    <div class="info">API key if your LLM server requires one. For local LM Studio, this is often not needed or can be set to "none".</div>
+
+    <button id="saveButton">Save Settings & Hoist the Colors!</button>
+    <div id="status"></div>
+
+    <div class="info separator">
+        Ensure your local LLM server (like <a href="https://lmstudio.ai/" target="_blank">LM Studio</a>, <a href="https://ollama.com/" target="_blank">Ollama</a>, etc.) is running, the model is loaded, and the server has CORS enabled if necessary (LM Studio usually handles this well for localhost).
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>
