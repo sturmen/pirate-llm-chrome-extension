@@ -3,99 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pirate Rewriter Settings</title>
+    <title>Pirate Rewriter</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            width: 380px; /* Slightly wider for more text */
-            padding: 20px;
-            background-color: #f4f4f4; /* Lighter gray */
+            width: 380px;
+            padding: 15px; /* Reduced padding slightly */
+            background-color: #f4f4f4;
             color: #333;
         }
-        h3 {
+        .header {
             text-align: center;
-            color: #d35400; /* Pirate orange */
+            color: #d35400;
             margin-top: 0;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .header img {
+            width: 24px;
+            height: 24px;
+            margin-right: 8px;
         }
         label {
             display: block;
-            margin-top: 12px;
+            margin-top: 10px;
             font-weight: bold;
             color: #555;
+            font-size: 0.95em;
         }
         input[type="text"], input[type="url"] {
-            width: calc(100% - 16px); /* Adjusted for padding */
-            padding: 10px;
-            margin-top: 6px;
+            width: calc(100% - 16px);
+            padding: 8px;
+            margin-top: 5px;
             border: 1px solid #ccc;
             border-radius: 5px;
             box-sizing: border-box;
             font-size: 14px;
         }
+        .button-group {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px dashed #ccc;
+        }
         button {
-            background-color: #e67e22; /* Pirate button color */
+            background-color: #e67e22;
             color: white;
-            padding: 12px 18px;
+            padding: 10px 15px; /* Adjusted padding */
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 16px;
-            margin-top: 25px;
+            font-size: 15px; /* Adjusted font size */
             width: 100%;
             transition: background-color 0.3s ease;
             font-weight: bold;
+            margin-bottom: 10px; /* Space between buttons */
         }
         button:hover {
             background-color: #d35400;
         }
-        #status {
-            margin-top: 18px;
+        button#piratifyButton {
+             background-color: #c0392b; /* A more piratey red for the main action */
+        }
+        button#piratifyButton:hover {
+             background-color: #a5281b;
+        }
+        button:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+        .status-area {
+            margin-top: 12px;
             text-align: center;
             font-weight: bold;
-            min-height: 20px; /* Reserve space */
+            min-height: 18px; /* Reserve space */
+            font-size: 0.9em;
+            padding: 8px;
+            border-radius: 4px;
         }
-        .info {
-            font-size: 0.85em; /* Slightly smaller */
+        .status-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .status-info {
+            background-color: #e2e3e5;
+            color: #383d41;
+            border: 1px solid #d6d8db;
+        }
+        .info-text { /* Renamed from .info to avoid conflict */
+            font-size: 0.8em;
             color: #666;
-            margin-top: 6px;
-            line-height: 1.5;
+            margin-top: 4px;
+            line-height: 1.4;
         }
         a {
-            color: #c0392b; /* More piratey red for links */
+            color: #c0392b;
             text-decoration: none;
         }
         a:hover {
             text-decoration: underline;
         }
-        .separator {
-            border-top: 1px dashed #ccc;
-            margin-top: 20px;
-            padding-top: 15px;
-        }
     </style>
 </head>
 <body>
-    <h3>🏴‍☠️ Pirate Rewriter Settings 🦜</h3>
+    <div class="header">
+        <img src="icons/pirate-flag.svg" alt="Pirate Flag">
+        <span>Pirate Rewriter</span>
+    </div>
 
-    <label for="llmApiUrl">LLM API Base URL:</label>
-    <input type="url" id="llmApiUrl" placeholder="e.g., http://localhost:1234/v1">
-    <div class="info">Base URL for your OpenAI-compatible local LLM. Default for LM Studio is often <code>http://localhost:1234/v1</code>. The extension appends '/chat/completions'.</div>
+    <div id="actionSection">
+        <button id="piratifyButton">🏴‍☠️ Piratify This Page! 🦜</button>
+        <div id="rewriteStatus" class="status-area" style="display: none;"></div>
+    </div>
 
-    <label for="llmModelName">Model Name:</label>
-    <input type="text" id="llmModelName" placeholder="e.g., llama3, mistral-instruct">
-    <div class="info">The exact name of the model loaded in your LLM server (case-sensitive for some servers).</div>
+    <div class="button-group">
+        <label for="llmApiUrl">LLM API Base URL:</label>
+        <input type="url" id="llmApiUrl" placeholder="e.g., http://localhost:1234/v1">
+        <div class="info-text">Base URL for your OpenAI-compatible local LLM.</div>
 
-    <label for="llmApiKey">API Key (Optional):</label>
-    <input type="text" id="llmApiKey" placeholder="Usually 'none' or blank for LM Studio">
-    <div class="info">API key if your LLM server requires one. For local LM Studio, this is often not needed or can be set to "none".</div>
+        <label for="llmModelName">Model Name:</label>
+        <input type="text" id="llmModelName" placeholder="e.g., llama3, mistral-instruct">
+        <div class="info-text">Exact model name from your LLM server.</div>
 
-    <button id="saveButton">Save Settings & Hoist the Colors!</button>
-    <div id="status"></div>
+        <label for="llmApiKey">API Key (Optional):</label>
+        <input type="text" id="llmApiKey" placeholder="Usually 'none' or blank">
+        <div class="info-text">API key if your LLM server requires one.</div>
 
-    <div class="info separator">
-        Ensure your local LLM server (like <a href="https://lmstudio.ai/" target="_blank">LM Studio</a>, <a href="https://ollama.com/" target="_blank">Ollama</a>, etc.) is running, the model is loaded, and the server has CORS enabled if necessary (LM Studio usually handles this well for localhost).
+        <button id="saveButton">Save Settings</button>
+        <div id="settingsStatus" class="status-area" style="display: none;"></div>
+    </div>
+    
+    <div class="info-text" style="margin-top: 15px; text-align: center;">
+        Ensure your local LLM server (like <a href="[https://lmstudio.ai/](https://lmstudio.ai/)" target="_blank">LM Studio</a>) is running.
     </div>
 
     <script src="popup.js"></script>
