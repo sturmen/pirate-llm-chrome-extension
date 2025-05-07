@@ -4,9 +4,9 @@
   "version": "1.4",
   "description": "Rewrites article text on web pages in a pirate voice using a local LLM. Activate from the extension popup.",
   "permissions": [
-    "storage", // To save LLM configuration
-    "activeTab", // To interact with the current page from the popup
-    "scripting" // To send messages to content scripts effectively
+    "storage",
+    "activeTab",
+    "scripting"
   ],
   "host_permissions": [
     "http://localhost/*",
