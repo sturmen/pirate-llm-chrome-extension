@@ -1,0 +1,1 @@
+I vibe coded this with Google Gemini 2.5 Pro. Don't ask me how it works, because I never bothered to learn!
