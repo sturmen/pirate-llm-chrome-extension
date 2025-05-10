@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Pirate Rewriter",
-  "version": "1.4.2",
+  "version": "1.4",
   "description": "Rewrites article text on web pages in a pirate voice using a local LLM. Activate from the extension popup.",
   "permissions": [
     "storage",
@@ -17,12 +17,8 @@
   },
   "content_scripts": [
     {
-      "matches": [
-        "<all_urls>"
-      ],
-      "js": [
-        "content.js"
-      ],
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
       "run_at": "document_idle"
     }
   ],
@@ -32,12 +28,8 @@
   },
   "web_accessible_resources": [
     {
-      "resources": [
-        "icons/pirate-flag.svg"
-      ],
-      "matches": [
-        "<all_urls>"
-      ]
+      "resources": ["icons/pirate-flag.svg"],
+      "matches": ["<all_urls>"]
     }
   ]
 }
